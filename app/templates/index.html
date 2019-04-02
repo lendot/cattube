@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Murderbox</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
+  </head>
+  <body>
+    <div class="jumbotron">
+      <h1>Murderbox</h1>
+    </div>
+    <div class="container">
+      <form>
+	<div class="form-row">
+	  <div class="col-md-4 mb-3">
+	    <label for="distance">Trigger distance:</label>
+	    <input type="text" id="distance" class="form-control" size="3" maxlength="3">
+	  </div>
+	  <div class="col-md4 mb-3">
+	    <select id="units">
+	      <option value="cm" selected>cm</option>
+	      <option value="in">in</option>
+	    </select>
+	  </div>
+	</div>
+	<div class="checkbox">
+	  <label><input type="checkbox"> Mute audio</label>
+	</div>
+      </form>
+    </div>
+    <div class="container">
+      <ul>
+	{% for video in videos %}
+	<li>{{ video }}</li>
+	{% endfor %}
+      </ul>
+    </div>
+    <script src="{{ url_for('static', filename='js/jquery-3.3.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }} "></script>
+    <script src="{{ url_for('static', filename='js/app.js') }} "></script>
+  </body>
+</html>  
