@@ -13,14 +13,14 @@
       <h1>Murderbox</h1>
     </div>
     <div class="container">
-      <form>
+      <form action="/update" method="post">
 	<div class="form-row">
 	  <div class="col-md-4 mb-3">
 	    <label for="distance">Trigger distance:</label>
-	    <input type="text" id="distance" class="form-control" size="3" maxlength="3">
+	    <input type="text" id="distance" name="distance" class="form-control" size="3" maxlength="3" value="{{ config['distance'] }}">
 	  </div>
 	  <div class="col-md4 mb-3">
-	    <select id="units">
+	    <select id="units" name="units">
 	      <option value="cm" selected>cm</option>
 	      <option value="in">in</option>
 	    </select>
@@ -29,6 +29,7 @@
 	<div class="checkbox">
 	  <label><input type="checkbox"> Mute audio</label>
 	</div>
+	<input type="submit" value="Submit">
       </form>
     </div>
     <div class="container">
