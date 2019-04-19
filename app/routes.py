@@ -16,12 +16,19 @@ def index():
 
 @app.route('/update',methods=['POST'])
 def update():
-    print("got here")
-    distance = request.form.get('distance')
-    print("got here 2")
+    conf = config.load_config(CONFIG_FILE)
+
+    # load parameters from the POST request
+    distance = int(request.form.get('distance'))
     units = request.form.get('units')
-    print(distance)
-    print(units)
+    mute = request.form.get('mute') == 'true'
+
+    # update configuration settings
+    conf['distance'] = distance
+    conf['units'] = units
+    conf['mute'] = mute
+    config.save_config(conf,CONFIG_FILE)
+
     return redirect("/")
 
 '''

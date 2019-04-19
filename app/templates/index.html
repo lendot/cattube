@@ -17,17 +17,17 @@
 	<div class="form-row">
 	  <div class="col-md-4 mb-3">
 	    <label for="distance">Trigger distance:</label>
-	    <input type="text" id="distance" name="distance" class="form-control" size="3" maxlength="3" value="{{ config['distance'] }}">
+	    <input type="number" id="distance" name="distance" class="form-control" min="10" max="100" value="{{ config['distance'] }}">
 	  </div>
 	  <div class="col-md4 mb-3">
 	    <select id="units" name="units">
-	      <option value="cm" selected>cm</option>
-	      <option value="in">in</option>
+	      <option value="cm" {% if config['units'] == 'cm' %}selected{% endif %}>cm</option>
+	      <option value="in" {% if config['units'] != 'cm' %}selected{% endif %}>in</option>
 	    </select>
 	  </div>
 	</div>
 	<div class="checkbox">
-	  <label><input type="checkbox"> Mute audio</label>
+	  <label><input type="checkbox" name="mute" value="true" {% if config['mute'] %}checked{% endif %} > Mute audio</label>
 	</div>
 	<input type="submit" value="Submit">
       </form>
