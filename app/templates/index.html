@@ -14,30 +14,32 @@
     </div>
     <div class="container">
       <form action="/update" method="post">
-	<div class="form-row">
-	  <div class="col-md-4 mb-3">
-	    <label for="distance">Trigger distance:</label>
-	    <input type="number" id="distance" name="distance" class="form-control" min="10" max="100" value="{{ config['distance'] }}">
-	  </div>
-	  <div class="col-md4 mb-3">
-	    <select id="units" name="units">
-	      <option value="cm" {% if config['units'] == 'cm' %}selected{% endif %}>cm</option>
-	      <option value="in" {% if config['units'] != 'cm' %}selected{% endif %}>in</option>
-	    </select>
-	  </div>
+	<div class="form-group">
+	  <label for="distance">Trigger distance:</label>
+	  <input type="number" id="distance" name="distance" class="form-control" min="10" max="100" value="{{ config['distance'] }}">
+	</div>
+	<div class="form-group">
+	  <select id="units" name="units">
+	    <option value="cm" {% if config['units'] == 'cm' %}selected{% endif %}>cm</option>
+	    <option value="in" {% if config['units'] != 'cm' %}selected{% endif %}>in</option>
+	  </select>
 	</div>
 	<div class="checkbox">
 	  <label><input type="checkbox" name="mute" value="true" {% if config['mute'] %}checked{% endif %} > Mute audio</label>
 	</div>
-	<input type="submit" value="Submit">
+	<button type="submit" class="btn btn-primary">Submit</button>
       </form>
     </div>
     <div class="container">
-      <ul>
+      <table class="table table-striped">
 	{% for video in videos %}
-	<li>{{ video }}</li>
+	<tr>
+	  <td>{{ video }}</td>
+	  <td>3s</td>
+	  <td>28 fps</td>
+	</tr>
 	{% endfor %}
-      </ul>
+      </table>
     </div>
     <script src="{{ url_for('static', filename='js/jquery-3.3.1.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }} "></script>
