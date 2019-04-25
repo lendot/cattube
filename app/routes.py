@@ -2,6 +2,7 @@ from flask import render_template,send_from_directory,request,redirect
 from os import listdir
 from app import app
 import config
+import videos
 
 VIDEO_DIR = "/home/pi/videos"
 
@@ -29,6 +30,12 @@ def update():
     conf['mute'] = mute
     config.save_config(conf,CONFIG_FILE)
 
+    return redirect("/")
+
+@app.route('/delete/<video>')
+def delete(video):
+    print("Delete "+video)
+    videos.remove(video)
     return redirect("/")
 
 '''

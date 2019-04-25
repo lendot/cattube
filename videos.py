@@ -1,6 +1,7 @@
 import random
 from os import listdir,stat
 from os.path import join
+import os
 
 VIDEO_DIR = "/home/pi/videos"
 
@@ -30,3 +31,11 @@ def get_videos():
         video={'filename':join(VIDEO_DIR,f)}
         videos.append(video)
     return videos
+
+# remove the video with the given filename
+def remove(video):
+    path = join(VIDEO_DIR,video)
+    try:
+        os.remove(path)
+    except FileNotFoundError:
+        print("File not found: "+path)
