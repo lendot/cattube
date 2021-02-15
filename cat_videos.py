@@ -162,17 +162,17 @@ while True:
             # we were last near; let's see we whether we still are
             if distance > away_threshold:
                 near = False
-                logging.info("Away (d={})".format(distance))
+                logging.info("Away (d={:.1f})".format(distance))
             else:
                 video_process = play_video()
         elif distance < near_threshold:
             # we just moved from away to near
-            logging.info("Near detected (d={}) Verifying.".format(distance))
+            logging.info("Near detected (d={:.1f}) Verifying.".format(distance))
             # do a few more readings to make sure it wasn't a blip
             near = True
             for i in range(3):
                 dcheck=get_distance()
-                logging.info("d={}".format(dcheck))
+                logging.info("  d={:.1f}".format(dcheck))
                 if dcheck >= near_threshold:
                     near = False
                     logging.info("abort")
