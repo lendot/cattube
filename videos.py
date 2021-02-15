@@ -1,4 +1,5 @@
 import random
+import logging
 from os import listdir,stat
 from os.path import join
 import os
@@ -16,7 +17,7 @@ def get_video():
     # see if the contents of the video directory have changed since last scan
     statinfo = stat(VIDEO_DIR)
     if statinfo.st_mtime != last_video_dir_mtime:
-        print("video directory changed. Rescanning")
+        logging.info("video directory changed. Rescanning")
         videos = get_videos()
         last_video_dir_mtime = statinfo.st_mtime
 
@@ -38,4 +39,4 @@ def remove(video):
     try:
         os.remove(path)
     except FileNotFoundError:
-        print("File not found: "+path)
+        logging.error("File not found: "+path)
