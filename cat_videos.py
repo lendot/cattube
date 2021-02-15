@@ -177,8 +177,8 @@ while True:
                     near = False
                     logging.info("abort")
                     break
-                time.sleep(0.2)
+                time.sleep(0.05)
             if near:
                 logging.info("Verified. Playing video.")
                 video_process = play_video()
-        time.sleep(0.5)
+        time.sleep(0.25)
