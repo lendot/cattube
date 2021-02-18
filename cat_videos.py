@@ -8,6 +8,7 @@ import logging
 import videos
 import config
 import stats
+import datetime
 from watchdog.observers import Observer
 from watchdog.events import PatternMatchingEventHandler
 
@@ -86,16 +87,37 @@ def play_video():
     video = videos.get_video()
     video_file = video['filename']
 
-    logging.info("playing {} ({}s)".format(video_file,video['duration']))
-    
-    args = ['omxplayer','-b']
+    args = ['omxplayer','-b','--no-osd']
 
     if mute:
         # not sure how reliable omxplayer -n -1 is, but not
         # sure of any better alternatives for muting
         args.extend(["-n","-1"])
 
+
+    def omxplayer_timestamp(s):
+        # convert number of seconds to an omxplayer HH:MM:SS timestamp
+        ts = datetime.timedelta(seconds=s)
+        return str(ts)
+        
+    video_duration = int(video['duration'])
+
+    # default: play entire video
+    timestamp = omxplayer_timestamp(0)
+    duration = video_duration
+    
+    if conf['play_clips']:
+        # pick a random section of the video to play
+        clip_duration = conf['clip_duration']
+        if video_duration > clip_duration:
+            start = random.randint(0,video_duration-clip_duration)
+            duration = clip_duration
+            timestamp = omxplayer_timestamp(start)
+            args.extend(["--pos",timestamp])
+
     args.append(video_file)
+
+    logging.info("playing {}@{}".format(video_file,timestamp))
 
     omxp = Popen(args)
     stats.start_video(video_file)
@@ -117,6 +139,12 @@ def load_config():
 
     mute = conf['mute']
     logging.info ("mute: " + str(mute))
+
+    play_clips = conf['play_clips']
+    logging.info ("play_clips: {}".format(play_clips))
+    if play_clips:
+        logging.info("clip_duration: {}".format(conf['clip_duration']))
+    
 
 class ConfigChangeHandler(PatternMatchingEventHandler):
     def on_any_event(self, event):
