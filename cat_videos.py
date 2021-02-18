@@ -24,10 +24,10 @@ CONFIG_FILE = "config.json"
 SERIAL_DEVICE = "/dev/ttyS0"
 
 # maximum distance to be considered near (cm)
-near_threshold = 40
+near_threshold = 50
 
 # minimum distance to switch from near to away (cm)
-away_threshold = 60
+away_threshold = 70
 
 
 serial1 = serial.Serial(SERIAL_DEVICE)
@@ -81,9 +81,12 @@ def get_distance():
 
 def play_video():
     global stats
-    video_file=videos.get_video()
 
-    logging.info("playing "+video_file)
+    # get a random video to play
+    video = videos.get_video()
+    video_file = video['filename']
+
+    logging.info("playing {} ({}s)".format(video_file,video['duration']))
     
     args = ['omxplayer','-b']
 
