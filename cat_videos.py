@@ -9,6 +9,7 @@ import videos
 import config
 import stats
 import datetime
+import psutil
 from watchdog.observers import Observer
 from watchdog.events import PatternMatchingEventHandler
 
@@ -81,13 +82,13 @@ def get_distance():
 
 
 def play_video():
-    global stats
+    global stats,duration,vidstart
 
     # get a random video to play
     video = videos.get_video()
     video_file = video['filename']
 
-    args = ['omxplayer','-b','--no-osd']
+    args = ['/usr/bin/omxplayer','-b','--no-osd']
 
     if mute:
         # not sure how reliable omxplayer -n -1 is, but not
@@ -121,6 +122,8 @@ def play_video():
 
     omxp = Popen(args)
     stats.start_video(video_file)
+
+    vidstart = time.time()
     
     return omxp
 
@@ -146,6 +149,13 @@ def load_config():
         logging.info("clip_duration: {}".format(conf['clip_duration']))
     
 
+def terminate_process(pid):
+    # terminate a process and all its children
+    p = psutil.Process(pid)
+    for child in p.children():
+        child.terminate()
+    p.terminate()
+        
 class ConfigChangeHandler(PatternMatchingEventHandler):
     def on_any_event(self, event):
         logging.info("Config file changed. Reloading")
@@ -177,10 +187,17 @@ observer.start()
 
 while True:
     if video_process is not None:
+        now = time.time()
         # video is playing
         if video_process.poll() is not None:
             # video is done playing
             logging.info("Video done")
+            video_process = None
+            stats.end_video()
+        elif now >= vidstart + duration:
+            # video clip is done playing
+            logging.info("Clip done")
+            terminate_process(video_process.pid)
             video_process = None
             stats.end_video()
         else:
@@ -195,6 +212,7 @@ while True:
                 near = False
                 logging.info("Away (d={:.1f})".format(distance))
             else:
+                logging.info("d={:.1f}".format(distance))
                 video_process = play_video()
         elif distance < near_threshold:
             # we just moved from away to near
