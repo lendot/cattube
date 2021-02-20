@@ -41,7 +41,7 @@ value_idx=0
 
 mute = False
 
-stats = stats.Stats(MURDERBOX_DIR+"/"+STATS_FILE)
+stats = stats.Stats(join(MURDERBOX_DIR,STATS_FILE))
 
 
 # reads a distance from the US-100
@@ -168,7 +168,8 @@ near=False
 video_process=None
 
 # set up logging
-logging.basicConfig(filename=MURDERBOX_DIR+"/"+LOG_FILE,
+logging.basicConfig(filename=join(MURDERBOX_DIR,LOG_FILE),
+                    filemode="W",
                     level=logging.INFO,
                     format='%(asctime)s %(message)s')
 logging.info("Murderbox starting")
