@@ -120,7 +120,13 @@ def play_video():
 
     logging.info("playing {}@{}".format(video_file,timestamp))
 
-    omxp = Popen(args)
+    try:
+        omxp = Popen(args)
+    except Exception:
+        logging.exception("process creation failed: ")
+        logging.info(args)
+        return None
+
     stats.start_video(video_file)
 
     vidstart = time.time()
@@ -131,6 +137,7 @@ def in_to_cm(inches):
     return inches * 2.54
 
 def load_config():
+    # TODO: clean this up, do defaults better
     global conf,near_threshold,away_threshold,mute
     conf = config.load_config(CONFIG_FILE)
     near_threshold = conf['distance']
@@ -152,9 +159,17 @@ def load_config():
 def terminate_process(pid):
     # terminate a process and all its children
     p = psutil.Process(pid)
-    for child in p.children():
+    children = p.children()
+    for child in children:
         child.terminate()
+    gone, alive = psutil.wait_procs(children,timeout=3)
+    for child in alive:
+        # process still lingering; forefully kill it
+        logging("Child PID {} didn't terminate. Killing.".format(child.pid))
+        child.kill()
+        
     p.terminate()
+    # do a wait and p.kill() if process sticks around?
         
 class ConfigChangeHandler(PatternMatchingEventHandler):
     def on_any_event(self, event):
