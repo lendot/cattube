@@ -1,4 +1,5 @@
 import serial
+import logging
 
 class DistanceSensor:
     """

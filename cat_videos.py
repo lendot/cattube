@@ -7,6 +7,7 @@ from subprocess import Popen
 import logging
 import videos
 import config
+import distance_sensor
 import stats
 import datetime
 import psutil
@@ -26,6 +27,8 @@ CONFIG_FILE = "config.json"
 
 # serial device to use to communicate with the US-100
 SERIAL_DEVICE = "/dev/ttyS0"
+sensor = distance_sensor.DistanceSensor(SERIAL_DEVICE)
+
 
 # maximum distance to be considered near (cm)
 near_threshold = 50
@@ -37,15 +40,11 @@ away_threshold = 70
 serial1 = serial.Serial(SERIAL_DEVICE)
 
 
-buffer_len=10
-value_buffer=[0]*buffer_len
-value_idx=0
-
 mute = False
 
 stats = stats.Stats(join(MURDERBOX_DIR,STATS_FILE))
 
-
+"""
 # reads a distance from the US-100
 # returns distnace, in cm
 def read_distance():
@@ -81,6 +80,7 @@ def get_distance():
     logging.debug("smoothed distance: {:.1f} cm".format(distance))
     
     return distance
+"""
 
 """
 def play_video():
@@ -229,11 +229,11 @@ while True:
             playing_video = False
         else:
             # video still playing; track engagement
-            distance = get_distance()
+            distance = sensor.get_distance()
             stats.mark_interest(distance < away_threshold)
             time.sleep(0.5)
     else:
-        distance = get_distance()
+        distance = sensor.get_distance()
         if near:
             # we were last near; let's see we whether we still are
             if distance > away_threshold:
@@ -248,7 +248,7 @@ while True:
             # do a few more readings to make sure it wasn't a blip
             near = True
             for i in range(3):
-                dcheck=get_distance()
+                dcheck=sensor.get_distance()
                 logging.info("  d={:.1f}".format(dcheck))
                 if dcheck >= near_threshold:
                     near = False
