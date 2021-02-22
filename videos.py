@@ -125,6 +125,11 @@ class Videos:
         # do a wait and p.kill() if process sticks around?
 
             
+    def _omxplayer_timestamp(s):
+        # convert number of seconds to an omxplayer-style HH:MM:SS timestamp
+        ts = datetime.timedelta(seconds=s)
+        return str(ts)
+        
     def play_video(self,mute=False,clip_duration=0):
         """
         select a random video and play it
@@ -144,22 +149,17 @@ class Videos:
             args.extend(["-n","-1"])
 
 
-        def omxplayer_timestamp(s):
-            # convert number of seconds to an omxplayer HH:MM:SS timestamp
-            ts = datetime.timedelta(seconds=s)
-            return str(ts)
-        
         video_duration = int(video['duration'])
 
         # default: play entire video
-        timestamp = omxplayer_timestamp(0)
+        timestamp = _omxplayer_timestamp(0)
         duration = video_duration
     
         if play_clips and video_duration > clip_duration::
             # pick a random section of the video to play
             start = random.randint(0,video_duration-clip_duration)
             duration = clip_duration
-            timestamp = omxplayer_timestamp(start)
+            timestamp = _omxplayer_timestamp(start)
             args.extend(["--pos",timestamp])
 
         args.append(video_file)
@@ -167,15 +167,39 @@ class Videos:
         logging.info("playing {}@{}".format(video_file,timestamp))
 
         try:
-            self.video_player = Popen(args)
+            self.player = Popen(args)
         except Exception:
             logging.exception("process creation failed: ")
             logging.info(args)
             return None
 
-        stats.start_video(video_file)
-
         self.player_duration = duration
         self.player_start = time.time()
+
+        return video
+
     
-        return self.player
+    def is_finished():
+        """
+        Check if video is done playing
+        """
+        now = time.time()
+        finised = False
+        if self.player is None:
+            finished = True
+        elif self.player.poll() is not None:
+            # player process has finished
+            finished = True
+        elif now >= self.player_start + self.player_duration:
+            # player still running, clip end time reached
+            self._terminate_process(self.player.pid)
+            finished = True
+
+        if finished:
+            # reset everything
+            self.player = None
+            self.player_start = 0
+            self.player_duration = 0
+        
+        return finished
+    

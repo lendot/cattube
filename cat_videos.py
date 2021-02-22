@@ -13,6 +13,8 @@ import psutil
 from watchdog.observers import Observer
 from watchdog.events import PatternMatchingEventHandler
 
+VIDEO_DIR = "/home/pi/videos"
+
 MURDERBOX_DIR = "/home/pi/src/murderboxws"
 
 STATS_FILE = "stats.csv"
@@ -80,7 +82,7 @@ def get_distance():
     
     return distance
 
-
+"""
 def play_video():
     global stats,duration,vidstart
 
@@ -132,6 +134,7 @@ def play_video():
     vidstart = time.time()
     
     return omxp
+"""
 
 def in_to_cm(inches):
     return inches * 2.54
@@ -155,7 +158,7 @@ def load_config():
     if play_clips:
         logging.info("clip_duration: {}".format(conf['clip_duration']))
     
-
+"""
 def terminate_process(pid):
     # terminate a process and all its children
     p = psutil.Process(pid)
@@ -170,7 +173,8 @@ def terminate_process(pid):
         
     p.terminate()
     # do a wait and p.kill() if process sticks around?
-        
+"""
+
 class ConfigChangeHandler(PatternMatchingEventHandler):
     def on_any_event(self, event):
         logging.info("Config file changed. Reloading")
@@ -180,7 +184,7 @@ class ConfigChangeHandler(PatternMatchingEventHandler):
 
 near=False
 
-video_process=None
+#video_process=None
 
 # set up logging
 logging.basicConfig(filename=join(MURDERBOX_DIR,LOG_FILE),
@@ -199,8 +203,65 @@ event_handler = ConfigChangeHandler(patterns=[config_path],ignore_patterns=[],ig
 observer = Observer()
 observer.schedule(event_handler,MURDERBOX_DIR,recursive=False)
 observer.start()
-               
 
+v = videos.Videos(VIDEO_DIR)
+
+
+def play():
+    # play a video
+    global playing_video
+    dur = 0
+    if play_clips:
+        dur = conf['clip_duration']
+    video=v.play_video(mute=mute,clip_duration=dur)
+    if video is not None:
+        stats.start_video(video['filename'])
+        playing_video = True
+
+
+playing_video = False
+
+while True:
+    if playing_video:
+        if v.is_finished():
+            logging.info("Video done")
+            stats.end_video()
+            playing_video = False
+        else:
+            # video still playing; track engagement
+            distance = get_distance()
+            stats.mark_interest(distance < away_threshold)
+            time.sleep(0.5)
+    else:
+        distance = get_distance()
+        if near:
+            # we were last near; let's see we whether we still are
+            if distance > away_threshold:
+                near = False
+                logging.info("Away (d={:.1f})".format(distance))
+            else:
+                logging.info("d={:.1f}".format(distance))
+                play()
+        elif distance < near_threshold:
+            # we just moved from away to near
+            logging.info("Near detected (d={:.1f}) Verifying.".format(distance))
+            # do a few more readings to make sure it wasn't a blip
+            near = True
+            for i in range(3):
+                dcheck=get_distance()
+                logging.info("  d={:.1f}".format(dcheck))
+                if dcheck >= near_threshold:
+                    near = False
+                    logging.info("abort")
+                    break
+                time.sleep(0.1)
+            if near:
+                logging.info("Verified. Playing video.")
+                play()
+        time.sleep(0.25)
+
+
+"""
 while True:
     if video_process is not None:
         now = time.time()
@@ -247,3 +308,4 @@ while True:
                 logging.info("Verified. Playing video.")
                 video_process = play_video()
         time.sleep(0.25)
+"""
