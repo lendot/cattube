@@ -1,5 +1,6 @@
 import serial
 import logging
+import time
 
 class DistanceSensor:
     """
