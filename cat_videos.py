@@ -26,6 +26,7 @@ sensor = distance_sensor.DistanceSensor(SERIAL_DEVICE)
 
 # maximum distance to be considered near (cm)
 near_threshold = 50
+DEFAULT_NEAR_THRESHOLD = 50
 
 # minimum distance to switch from near to away (cm)
 away_threshold = 70
@@ -113,7 +114,8 @@ while True:
         else:
             # video still playing; track engagement
             distance = sensor.get_distance()
-            stats.mark_interest(distance < away_threshold)
+            # stats.mark_interest(distance < away_threshold)
+            stats.mark_distance(distance)
             time.sleep(0.5)
     else:
         distance = sensor.get_distance()
@@ -144,3 +146,60 @@ while True:
         time.sleep(0.25)
 
 
+
+"""
+class CatVideos:
+
+    def __init__(self):
+        self._init_logging()
+        self.config = config.MurderboxConfig(CONFIG_FILE)
+        self._load_config()
+        self.near = False
+        self.playing_video = False
+        self.vids = videos.Videos(VIDEO_DIR)
+        self.stats = stats.Stats(join(MURDERBOX_DIR,STATS_FILE))
+        self.video = None
+        
+    def _init_logging(self):
+        logging.basicConfig(filename=join(MURDERBOX_DIR,LOG_FILE),
+                            filemode="w",
+                            level=logging.INFO,
+                            format='%(asctime)s %(message)s')
+        logging.info("Murderbox starting")
+
+
+        
+    def _in_to_cm(self,inches):
+        return inches * 2.54
+
+
+    def _load_config(self):
+        self.near_threshold = self.config.get("distance",DEFAULT_NEAR_THRESHOLD)
+        self.units = self.config.get("units","cm")
+        if self.units != "cm":
+            self.near_threshold = self._in_to_cm(self.near_threshold)
+        self.away_threshold = self.near_threshold + 20
+
+        logging.info ('near_threshold: {} cm'.format(self.near_threshold))
+        logging.info ('away_threshold: {} cm'.format(self.away_threshold))
+
+        self.mute = self.config.get("mute",False)
+        logging.info ("mute: {}".format(mute))
+            
+        self.play_clips = self.config.get("play_clips",False)
+        logging.info ("play_clips: {}".format(self.play_clips))
+        
+        self.clip_duration = self.config.get("clip_duration",180)
+        if self.play_clips:
+            logging.info("clip_duration: {}".format(self.clip_duration))
+        
+    def play():
+        # play a video
+        dur = 0
+        if self.play_clips:
+            dur = self.clip_duration
+        self.video=self.vids.play_video(mute=self.mute,clip_duration=dur)
+        if self.video is not None:
+            self.stats.start_video(self.video['filename'])
+            self.playing_video = True
+"""
