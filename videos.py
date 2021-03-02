@@ -81,6 +81,7 @@ class Videos:
             child.kill()
         
         p.terminate()
+        p.wait(timeout=3) # maybe this will address the zombie process problem?
         # do a wait and p.kill() if process sticks around?
 
             
