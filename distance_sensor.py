@@ -5,6 +5,9 @@ import time
 # upper distance limit (cm)
 MAX_DISTANCE = 100
 
+# number of readings for the rolling average
+NUM_READINGS = 5
+
 class DistanceSensor:
     """
     Read and process US_100 sensor distance readings
@@ -13,7 +16,8 @@ class DistanceSensor:
     def __init__(self,serial_device):
         self.serial_device = serial_device
         self.serial = serial.Serial(self.serial_device)
-
+        self.readings = [MAX_DISTANCE] * NUM_READINGS
+        self.readings_idx = 0
         
     def _read_distance(self):
         """
@@ -39,29 +43,17 @@ class DistanceSensor:
         """
         Get a smoothed distance reading.
         
-        Several readings are taken in succession and averaged after discarding
-        min/max values
+        Smoothing is done via a rolling average
         """
-        num_readings=5
-        acc=0
-        min_reading = 0xffff
-        max_reading = -0xffff
-        for i in range (num_readings):
-            reading = self._read_distance()
-            acc += reading
-            if reading < min_reading:
-                min_reading = reading
-            if reading > max_reading:
-                max_reading = reading
-            time.sleep(0.005)
 
-        logging.debug("acc: {:.1f}, min_reading={:.1f}, max_reading={:.1f}".format(acc,min_reading,max_reading))
-            
-        # remove min/max readings
-        acc -= min_reading
-        acc -= max_reading
-        distance = acc/(num_readings-2)
-        logging.debug("smoothed distance: {:.1f} cm".format(distance))
+        self.readings[self.readings_idx] = self._read_distance()
+        self.readings_idx = (self.readings_idx+1) % NUM_READINGS
+
+        readings_sum  = sum(self.readings)
+
+        avg = readings_sum / NUM_READINGS
         
-        return distance
+        logging.debug("smoothed distance: {:.1f} cm".format(avg))
+        
+        return avg
                                                                                                 
