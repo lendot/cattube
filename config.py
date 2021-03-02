@@ -21,10 +21,11 @@ class MurderboxConfig:
 
     def __init__(self,config_file):
         self.config_file = config_file
-        self._load()
+        self.load()
 
 
-    def _load(self):
+    def load(self):
+        # (re)load configuration file
         with open(self.config_file) as file:
             json_data=file.read()
 
