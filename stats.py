@@ -43,7 +43,7 @@ class Stats:
             rate = abs(dd/dt)
             self.acc += rate
             with open("stats_details.txt","a") as file:
-                file.write("{:.1f}\n".format(rate))
+                file.write("d={:.1f}, dt={:.1f}, r={:.1f}\n".format(distance,dt,rate))
 
         self.last_time = now
         self.last_reading = distance
