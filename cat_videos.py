@@ -93,7 +93,7 @@ class CatVideos:
         self.units = self.config.get("units","cm")
         if self.units != "cm":
             self.near_threshold = self._in_to_cm(self.near_threshold)
-        self.away_threshold = self.near_threshold + 20
+        self.away_threshold = self.near_threshold + 10
 
         logging.info ('near_threshold: {} cm'.format(self.near_threshold))
         logging.info ('away_threshold: {} cm'.format(self.away_threshold))
