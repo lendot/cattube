@@ -4,15 +4,12 @@ import logging
 import videos
 import config
 import distance_sensor
-import stats
 from watchdog.observers import Observer
 from watchdog.events import PatternMatchingEventHandler
 
 MURDERBOX_DIR = "/home/pi/src/murderboxws"
 
 VIDEO_DIR = "/home/pi/videos"
-
-STATS_FILE = "stats.csv"
 
 LOG_FILE = "cat_videos.log"
 
@@ -33,9 +30,6 @@ away_threshold = 70
 
 mute = False
 play_clips = False
-
-stats = stats.Stats(join(MURDERBOX_DIR,STATS_FILE))
-
 
 class ConfigChangeHandler(PatternMatchingEventHandler):
     # callback for when config file is changed
@@ -60,7 +54,6 @@ class CatVideos:
         self.near = False
         self.playing_video = False
         self.vids = videos.Videos(VIDEO_DIR)
-        # self.stats = stats.Stats(join(MURDERBOX_DIR,STATS_FILE))
         self.video = None
         
     def _init_logging(self):
@@ -116,19 +109,14 @@ class CatVideos:
             dur = self.clip_duration
         self.video=self.vids.play_video(mute=self.mute,clip_duration=dur)
         if self.video is not None:
-            stats.start_video(self.video['filename'])
             self.playing_video = True
 
     def _update_video_playing(self):
         if self.vids.is_finished():
             logging.info("Video done")
-            stats.end_video()
             self.playing_video = False
         else:
-            # video still playing; track engagement
             distance = sensor.get_distance()
-            # stats.mark_interest(distance < away_threshold)
-            stats.mark_distance(distance)
             time.sleep(0.25)
 
     def _update_proximity_wait(self):
