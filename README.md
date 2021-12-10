@@ -20,11 +20,14 @@ supply places, including [Adafruit](https://www.adafruit.com/product/4019).
 F-F jumper wires will work. For attaching to my headerless Pi Zero, I
 took the header off the US-100 and soldered the wires at both ends
 
+## Hookup
+
+![wiring connections between Raspberry Pi and US-100](images/murderbox-hookup.png)
 
 ## Enclosure
 
 At minimum, you'll need some way to hold the sensor in place somewhere
-cat-level while making sure the transmit/receive units are unobstructed.
+at cat-level while making sure the transmit/receive units are unobstructed.
 If you're using a Zero and have access to a 3D printer, .stl files are
 included for a wall-mount enclosure. Ours mounts under the TV.
 
