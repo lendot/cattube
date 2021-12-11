@@ -22,6 +22,16 @@ took the header off the US-100 and soldered the wires at both ends
 
 ## Hookup
 
+Make the following connections between the US-100 and the Raspberry Pi:
+| US-100     | Raspberry Pi |
+| ---------- | ---------- |
+| VCC        | Pin 1 (+3V3) |
+| Trig/Tx    | Pin 8 (TXD0 UART, aka GPIO14) |
+| Echo/Rx    | Pin 10 (RXD0 UART, aka GPIO15) |
+| GND (1)    | Pin 9 (GND) |
+| GND (2)    | Pin 14 (GND) |
+
+
 ![wiring connections between Raspberry Pi and US-100](images/murderbox-hookup.png)
 
 ## Enclosure
