@@ -3,3 +3,4 @@ flask
 pyserial
 tinytag
 psutil
+tkvideoplayer
