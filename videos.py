@@ -5,7 +5,7 @@ from os.path import join
 from tinytag import TinyTag
 
 # default video dir
-VIDEO_DIR = "/home/pi/videos"
+VIDEO_DIR = "/home/pi/Videos"
 
 class Videos:
     """
