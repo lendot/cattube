@@ -99,7 +99,10 @@ class View(tk.Frame):
             seek = float(start)
 
         self.video = imageio.get_reader(video['filename'])
-        self.video_frame_delay = int(1000 / self.video.get_meta_data()['fps'])
+        fps = self.video.get_meta_data()['fps']
+        self.video_frame_delay = int(1000 / fps)
+
+        logging.info("Playing video {}, {} fps".format (video['filename'],fps))
 
         self.video_playing = True
 
@@ -144,6 +147,7 @@ def main():
 
     logging.basicConfig(filename=LOG_FILE,
                         level=logging.INFO,
+                        filemode="w",
                         format='%(asctime)s %(message)s')
     logging.info("cattube starting")
     
