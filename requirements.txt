@@ -4,3 +4,5 @@ pyserial
 tinytag
 tkvideoplayer
 pyyaml
+imageio
+imageio-ffmpeg

@@ -3,7 +3,8 @@ import config
 import videos
 import distance_sensor
 import tkinter as tk
-from tkVideoPlayer import TkinterVideo
+import imageio
+from PIL import Image, ImageTk
 import random
 
 LOG_FILE = "cattube.log"
@@ -40,9 +41,11 @@ class View(tk.Frame):
 
         self.parent =parent 
 
-        # set up video player
-        self.video_player = TkinterVideo(master=parent, scaled=True, pre_load=False)
-        self.video_player.pack(expand=True, fill="both")
+        # set up video player frame
+        self.video_frame = tk.Frame(self.parent)
+        self.video_label = tk.Label(self.video_frame)
+        self.video_label.pack()
+        self.video_frame.pack()
 
         self.update()
 
@@ -63,8 +66,21 @@ class View(tk.Frame):
 
     def video_end(self):
         """ time to make video stop """
-        self.video_player.stop()
         self.video_playing = False
+
+    def stream(self):
+        """ stream a frame from the video file """
+        try:
+            image = self.video.get_next_data()
+            frame_image = Image.fromarray(image)
+            frame_image = ImageTk.PhotoImage(frame_image)
+            self.video_label.config(image=frame_image)
+            self.video_label.image = frame_image
+            self.video_label.after(self.video_frame_delay, self.stream)
+        except:
+            self.video.close()
+            self.video_playing = False
+            return
 
     def play_video(self):
         """ find a video to play and start playing it """
@@ -82,14 +98,15 @@ class View(tk.Frame):
             duration = self.clip_duration
             seek = float(start)
 
-        self.video_player.load(video['filename'])
-        self.video_player.seek(seek)
+        self.video = imageio.get_reader(video['filename'])
+        self.video_frame_delay = int(1000 / self.video.get_meta_data()['fps'])
 
-        self.video_player.play()
         self.video_playing = True
 
         # set up callback to stop video play after duration
-        self.after(int(duration*1000),self.video_end)
+        # self.after(int(duration*1000),self.video_end)
+
+        self.stream()
 
 class CatTube(tk.Tk):
     """ Main CatTube app class """
