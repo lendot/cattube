@@ -70,7 +70,7 @@ class View(tk.Frame):
         """ find a video to play and start playing it """
         video = self.vids.get_video()
 
-        video_duration = video['duration']
+        video_duration = int(video['duration'])
 
         # default: play entire video
         seek = 0.0
