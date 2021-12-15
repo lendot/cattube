@@ -3,8 +3,7 @@ import config
 import videos
 import distance_sensor
 import tkinter as tk
-import imageio
-from PIL import Image, ImageTk
+import vlc
 import random
 
 LOG_FILE = "cattube.log"
@@ -14,6 +13,8 @@ class View(tk.Frame):
 
     def __init__(self, parent, config, sensor, vids):
         super().__init__(parent)
+
+        self.parent =parent 
 
         self.config = config
         self.sensor = sensor
@@ -35,17 +36,18 @@ class View(tk.Frame):
         # parent.overrideredirect(1)
         parent.config(bg="black")
 
+        self.video_frame = tk.Frame(parent)
+        self.video_frame.pack(expand=True,fill='both')
+
         # set up handlers for keypresses and mouse clicks
         parent.bind("<Key>",self.key_pressed)
         parent.bind("<Button>",self.mouse_click)
 
-        self.parent =parent 
 
         # set up video player frame
-        self.video_frame = tk.Frame(self.parent)
-        self.video_label = tk.Label(self.video_frame)
-        self.video_label.pack()
-        self.video_frame.pack()
+        self.vlc_instance = vlc.Instance("--no-xlib")
+        self.video_player = self.vlc_instance.media_player_new()
+        self.video_player.set_xwindow(self.video_frame.winfo_id()) # attach vlc to this window
 
         self.update()
 
@@ -66,21 +68,8 @@ class View(tk.Frame):
 
     def video_end(self):
         """ time to make video stop """
+        self.video_player.stop()
         self.video_playing = False
-
-    def stream(self):
-        """ stream a frame from the video file """
-        try:
-            image = self.video.get_next_data()
-            frame_image = Image.fromarray(image)
-            frame_image = ImageTk.PhotoImage(frame_image)
-            self.video_label.config(image=frame_image)
-            self.video_label.image = frame_image
-            self.video_label.after(self.video_frame_delay, self.stream)
-        except:
-            self.video.close()
-            self.video_playing = False
-            return
 
     def play_video(self):
         """ find a video to play and start playing it """
@@ -98,18 +87,20 @@ class View(tk.Frame):
             duration = self.clip_duration
             seek = float(start)
 
-        self.video = imageio.get_reader(video['filename'])
-        fps = self.video.get_meta_data()['fps']
-        self.video_frame_delay = int(1000 / fps)
+        self.vlc_media = self.vlc_instance.media_new(video['filename'])
+        self.video_player.set_media(self.vlc_media)
 
-        logging.info("Playing video {}, {} fps".format (video['filename'],fps))
+        logging.info("Playing video {}".format (video['filename']))
+
+        if self.video_player.play() == -1:
+            logging.error("Can't play video")
+            return
 
         self.video_playing = True
 
         # set up callback to stop video play after duration
-        # self.after(int(duration*1000),self.video_end)
+        self.after(int(duration*1000),self.video_end)
 
-        self.stream()
 
 class CatTube(tk.Tk):
     """ Main CatTube app class """
