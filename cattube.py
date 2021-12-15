@@ -70,6 +70,7 @@ class View(tk.Frame):
         """ time to make video stop """
         self.video_player.stop()
         self.video_playing = False
+        self.vlc_media = None
 
     def play_video(self):
         """ find a video to play and start playing it """
@@ -78,14 +79,14 @@ class View(tk.Frame):
         video_duration = int(video['duration'])
 
         # default: play entire video
-        seek = 0.0
+        seek = 0
         duration = video_duration
 
         if self.play_clips and video_duration > self.clip_duration:
             # pick a random section of the video to play
             start = random.randint(0,video_duration-self.clip_duration)
             duration = self.clip_duration
-            seek = float(start)
+            seek = start*1000 
 
         self.vlc_media = self.vlc_instance.media_new(video['filename'])
         self.video_player.set_media(self.vlc_media)
@@ -95,6 +96,9 @@ class View(tk.Frame):
         if self.video_player.play() == -1:
             logging.error("Can't play video")
             return
+
+        # can't seek until after video starts playing
+        self.video_player.set_time(seek)
 
         self.video_playing = True
 
