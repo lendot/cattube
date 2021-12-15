@@ -32,7 +32,30 @@ Make the following connections between the US-100 and the Raspberry Pi:
 | GND (2)    | Pin 14 (GND) |
 
 
+
 ![wiring connections between Raspberry Pi and US-100](images/murderbox-hookup.png)
+
+## Software
+
+[TODO] Install Raspberry Pi OS
+
+Go to `Preferences` > `Raspberry Pi Configuration` > `Interfaces` and set `Serial Port` to `Enable`.
+Close out the window and tell it to reboot when it asks.
+
+[TODO] disable screensaver
+
+Open a terminal and run the following commands:
+`
+git clone https://github.com/lendot/cat-videos.git
+cd cat-videos
+pip install -r requirements.txt
+`
+[TODO] edit config file
+
+[TODO] how to start app
+
+[TODO] how to autorun app
+
 
 ## Enclosure
 
