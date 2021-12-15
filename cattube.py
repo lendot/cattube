@@ -36,7 +36,7 @@ class View(tk.Frame):
         # parent.overrideredirect(1)
         parent.config(bg="black")
 
-        self.video_frame = tk.Frame(parent)
+        self.video_frame = tk.Frame(parent,bg="black")
         self.video_frame.pack(expand=True,fill='both')
 
         # set up handlers for keypresses and mouse clicks
