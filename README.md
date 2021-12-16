@@ -37,7 +37,9 @@ Make the following connections between the US-100 and the Raspberry Pi:
 
 ## Software
 
-[TODO] Install Raspberry Pi OS
+Install [Raspberry Pi OS](https://www.raspberrypi.com/software/). Use the default operating system option.
+
+![Raspberry Pi OS (32-bit) A port of Debian Bullseye with the Raspberry Pi Desktop (Recommended)](images/os-select.png)
 
 From the desktop menu go to `Preferences` > `Raspberry Pi Configuration` and do the following:
 1. Go to the `Display` tab and set `Screen Blanking` to `Disable`
@@ -56,16 +58,12 @@ $ sudo cp cattube.desktop /etc/xdg/autostart
 ```
 [TODO] edit config file
 
-[TODO] how to start app
-
-[TODO] how to autorun app
-
 
 ## Enclosure
 
 At minimum, you'll need some way to hold the sensor in place somewhere
 at cat-level while making sure the transmit/receive units are unobstructed.
-If you're using a Zero and have access to a 3D printer, .stl files are
-included for a wall-mount enclosure. Ours mounts under the TV.
+If you have access to a 3D printer, .stl files are
+included for wall-mount enclosures. Ours mounts under the TV.
 
 
