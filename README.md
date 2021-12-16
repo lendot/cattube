@@ -51,7 +51,7 @@ Open a terminal and run the following commands:
 $ git clone https://github.com/lendot/cat-videos.git
 $ cd cat-videos
 $ pip install -r requirements.txt
-$ cp cattube.desktop ../
+$ cp cattube.desktop ../Desktop
 $ sudo cp cattube.desktop /etc/xdg/autostart
 ...
 [TODO] edit config file
