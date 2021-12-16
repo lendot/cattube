@@ -1,11 +1,12 @@
-# CatTube (aka Murderbox)
+# CatTube
+### On-demand Video Entertainment For Cats
+
+## Intro
 
 With this system you can load up videos your cats like onto a Raspberry Pi
-and an ultrasonic sensor will let them watch the videos whenever they want.
+and an ultrasonic sensor will start videos playing when they come in range.
 We've had this running for about 3 years in our living room and two of our
-cats use it multiple times a day. Often getting quite violent with the 
-monitor when it shows particularly tasty rodents. Hence us calling it the
-Murderbox.
+cats use it multiple times a day.
 
 ## Hardware
 
