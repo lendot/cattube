@@ -39,17 +39,21 @@ Make the following connections between the US-100 and the Raspberry Pi:
 
 [TODO] Install Raspberry Pi OS
 
-Go to `Preferences` > `Raspberry Pi Configuration` > `Interfaces` and set `Serial Port` to `Enable`.
-Close out the window and tell it to reboot when it asks.
+From the desktop menu go to `Preferences` > `Raspberry Pi Configuration` and do the following:
+1. Go to the `Display` tab and set `Screen Blanking` to `Disable`
+2. Go to the `Interfaces` tab and set `Serial Port` to `Enable` 
 
-[TODO] disable screensaver
+Click Ok and select Yes when asked to reboot.
+
 
 Open a terminal and run the following commands:
-`
-git clone https://github.com/lendot/cat-videos.git
-cd cat-videos
-pip install -r requirements.txt
-`
+...
+$ git clone https://github.com/lendot/cat-videos.git
+$ cd cat-videos
+$ pip install -r requirements.txt
+$ cp cattube.desktop ../
+$ sudo cp cattube.desktop /etc/xdg/autostart
+...
 [TODO] edit config file
 
 [TODO] how to start app
@@ -63,4 +67,5 @@ At minimum, you'll need some way to hold the sensor in place somewhere
 at cat-level while making sure the transmit/receive units are unobstructed.
 If you're using a Zero and have access to a 3D printer, .stl files are
 included for a wall-mount enclosure. Ours mounts under the TV.
+
 
