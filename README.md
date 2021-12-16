@@ -56,8 +56,21 @@ $ pip install -r requirements.txt
 $ cp cattube.desktop ../Desktop
 $ sudo cp cattube.desktop /etc/xdg/autostart
 ```
-[TODO] edit config file
 
+### Configuration
+The configuration file is in `~/cat-videos/config.yaml`. It can be edited with any text editor. The following settings can be tweaked there:
+
+| Setting      | Default                  | Description |
+| -------      | -------                  | ----------- |
+| video_dir    | /home/pi/Videos          | Location of videos to play |
+| distance     | 50                       | Maximum distance (cm) at which sensor will activate | 
+| play_clips   | False                    | If False, videos are played in their entirety. If True, random shorter subsections are played |
+| clip_duration| 180                      | If play_clips is True, the length of clips (in seconds) to play |
+| sensor_device| /dev/ttyS0               | If you need to use a different serial device, set it here |
+| mute         | False                    | Set to True to mute audio tracks on videos |
+
+play_clips is useful if you have longer videos and don't want the cats to get bored watching them all the way through.
+Clip durations betwen about 120s and 300s seem to work well for our cats.
 
 ## Enclosure
 
@@ -67,3 +80,19 @@ If you have access to a 3D printer, .stl files are
 included for wall-mount enclosures. Ours mounts under the TV.
 
 
+## Tips For Videos
+We've found that the best videos are ones filmed from a single, stationary camera. If the camera is moving,
+or the video is cutting between multiple cameras, it gets more confusing for the cats to track. Youtube has
+a lot of good single camera animals-in-nature videos and the like that our cats take really well to.
+
+I recommend trying a bunch of different types of videos to see what your cat responds to. 
+In addition to the nature videos ours also like videos of animated critters and stuff like balls rolling around.
+They're even sometimes interested in gameplay videos from stuff like Tetris or Centipede.
+A while back I put an OK Go video on ours just for laughs and it turns out our cats really like watching it.
+You never know what might grab their attention.
+
+CatTube uses vlc to play the videos. The version that comes with Raspberry Pi OS isn't 
+compiled with hardware acceleration enabled, which limits performance.
+The Pi 3 I'm testing on can handle standard 1K HD <= 30 FPS fine, but 4k or higher
+frame rates give it trouble. If a video is playing really slowly, or is giving
+a black screen, you may need to decrease the resolution and/or frame rate.
