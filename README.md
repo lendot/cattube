@@ -65,9 +65,9 @@ The configuration file is in `~/cat-videos/config.yaml`. It can be edited with a
 | -------      | -------                  | ----------- |
 | video_dir    | /home/pi/Videos          | Location of videos to play |
 | distance     | 50                       | Maximum distance (cm) at which sensor will activate | 
-| play_clips   | False                    | If False, videos are played in their entirety. If True, random shorter subsections are played |
+| play_clips   | False                    | If False, videos are played in their entirety. If True, random shorter subsections are played at a time |
 | clip_duration| 180                      | If play_clips is True, the length of clips (in seconds) to play |
-| sensor_device| /dev/ttyS0               | If you need to use a different serial device, set it here |
+| sensor_device| /dev/ttyS0               | If you need the sensor to to use a different serial device, set it here |
 | mute         | False                    | Set to True to mute audio tracks on videos |
 
 play_clips is useful if you have longer videos and don't want the cats to get bored watching them all the way through.
@@ -83,11 +83,12 @@ included for wall-mount enclosures. Ours mounts under the TV.
 
 ## Tips For Videos
 We've found that the best videos are ones filmed from a single, stationary camera. If the camera is moving,
-or the video is cutting between multiple cameras, it gets more confusing for the cats to track. Youtube has
-a lot of good single camera animals-in-nature videos and the like that our cats take really well to.
+or the video is cutting between multiple cameras, it gets more confusing for the cats to track. Youtube and
+other places have a lot of good single camera little-critters-in-the-woods videos and the like that our
+cats take really well to.
 
 I recommend trying a bunch of different types of videos to see what your cat responds to. 
-In addition to the nature videos ours also like videos of animated critters and stuff like balls rolling around.
+In addition to the nature videos ours also like videos of animated critters and things like balls rolling around.
 They're even sometimes interested in gameplay videos from stuff like Tetris or Centipede.
 A while back I put an OK Go video on ours just for laughs and it turns out our cats really like watching it.
 You never know what might grab their attention.
