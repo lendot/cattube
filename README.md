@@ -2,6 +2,7 @@
 ### On-demand Video Entertainment For Cats
 
 ## 1. Intro
+[TODO] Describe this better
 
 With this system you can load up videos your cats like onto a Raspberry Pi
 and an ultrasonic sensor will start videos playing when they come in range.
@@ -42,12 +43,8 @@ Install [Raspberry Pi OS](https://www.raspberrypi.com/software/). Use the defaul
 
 ![Raspberry Pi OS (32-bit) A port of Debian Bullseye with the Raspberry Pi Desktop (Recommended)](images/os-select.png)
 
-From the desktop menu go to `Preferences` > `Raspberry Pi Configuration` and do the following:
-1. Go to the `Display` tab and set `Screen Blanking` to `Disable`
-2. Go to the `Interfaces` tab and set `Serial Port` to `Enable` 
 
-Click Ok and select Yes when asked to reboot.
-
+Make sure the Pi has internet access and has run its system updates before continuing. 
 
 Open a terminal and run the following commands:
 ```
@@ -61,7 +58,13 @@ If you want CatTube to automatically start on bootup, also run this:
 $ sudo cp cattube.desktop /etc/xdg/autostart
 ```
 
-Open File Manager and go to `Edit` `Preferences` `General` and check "Don't ask options on launch executable file".
+From the desktop menu go to `Preferences` > `Raspberry Pi Configuration` and do the following:
+1. Go to the `Display` tab and set `Screen Blanking` to `Disable`
+2. Go to the `Interfaces` tab and set `Serial Port` to `Enable` 
+
+Click Ok and select Yes when asked to reboot.
+
+Open File Manager and go to `Edit` > `Preferences` > `General` and check "Don't ask options on launch executable file".
 
 
 ### 3.1. Configuration
