@@ -53,9 +53,11 @@ $ cd cattube
 $ pip install -r requirements.txt
 $ cp cattube.desktop ../Desktop
 ```
+
 If you want CatTube to automatically start on bootup, also run this:
 ```
-$ sudo cp cattube.desktop /etc/xdg/autostart
+$ mkdir ~/.config/autostart
+$ cp cattube.desktop ~/.config/autostart
 ```
 
 From the desktop menu go to `Preferences` > `Raspberry Pi Configuration` and do the following:
@@ -85,7 +87,7 @@ Clip durations betwen about 120s and 300s seem to work well for our cats.
 
 ### 3.2. Troubleshooting
 
-CatTube keeps a log file in ~/cattube/cattube.log. Check that first if anything's amiss.
+CatTube keeps a log file in `~/cattube/cattube.log`. Check that first if anything's amiss.
 
 
 ## 4. Enclosure
