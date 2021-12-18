@@ -1,11 +1,12 @@
 # Enclosure Files
 
-Here are .stl files for a Pi Zero enclosure should you wish to 3D print
-it. The ultrasonic sensor mounts on the underside of the cover through
-the cat's eyes. The base mounts to the wall via 2 screws.
+Here are files for an enclosure (currently Pi 3 only) should you
+wish to 3D print it. The ultrasonic sensor mounts on the underside of
+the cover through the cat's eyes using the 2 standoffs and 2 M2 screws [TODO: length].
+The Pi mounts to the body with 4 M2.5 screws [TODO: length]. The body 
+mounts to the wall via 2 #6 or #8 screws/anchors.
 
-Pretty much any enclosure will work as long as the sensor is exposed and
-held in place.
+If you're having trouble getting the Pi in place, try rotating it into
+position as shown here:
 
-![cad image of base model](base.png)
-![cad image of cover model](cover.png)
+![installing Pi 3 in enclosure](pi-install.png)
