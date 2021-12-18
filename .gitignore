@@ -121,3 +121,8 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+
+# cattube files
+cattube.log
+config.yaml
