@@ -1,7 +1,6 @@
 [Desktop Entry]
-
 Name=CatTube
-Path=/home/pi/cat-videos
+Path=/home/pi/cattube
 Exec=/usr/bin/python3 cattube.py
 Type=Application
 Terminal=false
