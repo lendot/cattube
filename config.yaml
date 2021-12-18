@@ -12,7 +12,7 @@ cattube:
     # cause the sensor to go "ooh! something's there!"
     # default: 50
     #
-    # distance: 75
+    distance: 50
 
     # if set to False, videos will play in their entirety.
     # set to True to use shorter, random clips from videos to cycle through them more frequently
