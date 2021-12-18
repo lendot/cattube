@@ -1,19 +1,31 @@
+# Uncomment any of the settings below to change them from their defaults
+
 cattube:
     # directory where videos are stored
-    video_dir: /home/llanphar/Videos
+    # default: /home/pi/Videos
+    #
+    # video_dir: /home/pi/Videos
 
     # Activate when cat is <= this distance (cm) to CatTube.
     # The area between the sensor and this distance must be free of
     # obsstacles, human foot traffic, or anything else that may
     # cause the sensor to go "ooh! something's there!"
-    distance: 50
+    # default: 50
+    #
+    # distance: 75
 
     # if set to False, videos will play in their entirety.
     # set to True to use shorter, random clips from videos to cycle through them more frequently
-    play_clips: True
+    # default: False
+    #
+    # play_clips: True
 
     # if play_clips is set to True, this is is the duration (in seconds) of the clips to play
-    clip_duration: 180
+    # default: 180
+    #
+    # clip_duration: 300
 
     # device to use for communicating with the US-100
+    # default: /dev/ttyS0
+    #
     # sensor_device: /dev/ttyS0
