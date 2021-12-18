@@ -70,6 +70,7 @@ class View(tk.Frame):
         """ time to make video stop """
         self.video_player.stop()
         self.video_playing = False
+        self.vlc_media.release()
         self.vlc_media = None
 
     def play_video(self):
