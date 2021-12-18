@@ -4,7 +4,7 @@ cattube:
     # directory where videos are stored
     # default: /home/pi/Videos
     #
-    # video_dir: /home/pi/Videos
+    video_dir: /home/llanphar/src/cat_videos/Videos
 
     # Activate when cat is <= this distance (cm) to CatTube.
     # The area between the sensor and this distance must be free of
