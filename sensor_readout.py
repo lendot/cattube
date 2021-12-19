@@ -1,6 +1,8 @@
 # Small app to show sensor distance readings
 #
 
+import logging
+import sys
 import config
 import distance_sensor
 import tkinter as tk
@@ -66,6 +68,11 @@ class SensorReadout(tk.Tk):
 
 
 def main():
+
+    logging.basicConfig(stream=sys.stdout,
+                        level=logging.INFO,
+                        format='%(asctime)s %(message)s')
+    
 
     app = SensorReadout()
     app.mainloop()
