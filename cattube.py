@@ -34,7 +34,7 @@ class View(tk.Frame):
         parent.geometry("{0}x{1}+0+0".format(w,h))
         # get rid of title bar, etc.
         parent.overrideredirect(1)
-        parent.config(bg="black")
+        parent.config(bg="black",cursor="none")
 
         self.video_frame = tk.Frame(parent,bg="black")
         self.video_frame.pack(expand=True,fill='both')
