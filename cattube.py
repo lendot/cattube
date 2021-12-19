@@ -8,6 +8,10 @@ import random
 
 LOG_FILE = "cattube.log"
 
+# number of seconds to wait after inactivity before stopping the running video
+# 0 = don't time out 
+DEFAULT_IDLE_TIMEOUT = 15
+
 class View(tk.Frame):
     """ Top-level application frame """
 
@@ -21,6 +25,7 @@ class View(tk.Frame):
         self.vids = vids
 
         self.video_playing = False
+        self.idle = False
 
         self.play_clips = self.config.get("play_clips",False)
         logging.info ("play_clips: {}".format(self.play_clips))
@@ -28,6 +33,8 @@ class View(tk.Frame):
         if self.play_clips:
             logging.info("clip_duration: {}".format(self.clip_duration))
 
+        self.idle_timeout = self.config.get("idle_timeout",DEFAULT_IDLE_TIMEOUT)
+        logging.info("idle_timeout: {}".format(self.idle_timeout))
 
         # make window full screen
         w,h = parent.winfo_screenwidth(), parent.winfo_screenheight()
@@ -61,15 +68,35 @@ class View(tk.Frame):
     def update(self):
         """ update sensor status """
         active = self.sensor.update()
-        if active and not self.video_playing:
-            self.play_video()
+        if active:
+            self.idle = False
+            if self.video_playing:
+                pass
+            else:
+                self.play_video()
+        else if self.idle_timeout > 0:
+            if self.idle:
+                now = time.monotonic()
+                if now - self.idle_start > self.idle_timeout:
+                    # kill the running video 
+                    if self.video_end_timer is not None:
+                        self.after_cancel(self.video_end_timer)
+                    self.video_end()
+            else:
+                logger.info("Idle detected")
+                self.idle_start = time.monotonic() 
+                self.idle==True
+            
         self.after(100,self.update)
 
 
     def video_end(self):
         """ time to make video stop """
         self.video_player.stop()
+        logger.info("video ended")
         self.video_playing = False
+        self.idle = False
+        self.video_end_timer = None
         self.vlc_media.release()
         self.vlc_media = None
 
@@ -103,9 +130,10 @@ class View(tk.Frame):
         self.video_player.set_time(seek)
 
         self.video_playing = True
+        self.idle = False
 
         # set up callback to stop video play after duration
-        self.after(int(duration*1000),self.video_end)
+        self.video_end_timer = self.after(int(duration*1000),self.video_end)
 
 
 class CatTube(tk.Tk):
