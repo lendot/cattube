@@ -4,6 +4,7 @@
 import config
 import distance_sensor
 import tkinter as tk
+import tkinter.font as tkfont
 
 FONT_FAMILY = "DejaVu Sans Mono"
 
