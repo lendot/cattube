@@ -90,8 +90,19 @@ play_clips is useful if you have longer videos and don't want the cats to get
 bored watching them all the way through. Clip durations betwen about 120s and
 300s seem to work well for our cats.
 
+### 3.2. Adding Videos
 
-### 3.2. Troubleshooting
+By default, CatTube looks for videos in `/home/pi/Videos`. mp4 videos are
+supported, others formats may be as well. See the Tips For Videos section
+below for more information.
+
+You can download videos from a browser or other application on the Pi desktop,
+or you can use, say, sftp from another machine (assuming SSH is enabled on
+the Pi). If you upload videos from another machine while CatTube is running,
+it'll automatically add them to its video pool without requiring a restart.
+
+
+### 3.3. Troubleshooting
 
 CatTube keeps a log file in `/home/pi/cattube/cattube.log`. Check that first
 if anything's amiss.
@@ -108,9 +119,9 @@ included for wall-mount enclosures. Ours mounts under the TV.
 ### 4.1. Sensor Positioning
 [TODO]
 
-To help figure out the right distance setting to use in your configuration,
-or to determine if there are any obstacles interfering with a proper distance
-reading, you can open up a terminal window and do the following:
+To help figure out the right distance setting to use in your configuration
+file, or to determine if there are any obstacles interfering with a proper
+distance reading, you can open up a terminal window and do the following:
 
 ```
 cd cattube
@@ -118,7 +129,8 @@ python3 sensor_readout.py
 ```
 
 This will bring up a window that continuously updates a display of the
-sensor's distance reading.
+sensor's distance reading. As with the configuration file, values are in
+centimeters.
 
 
 ## 5. Tips For Videos
