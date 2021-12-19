@@ -92,7 +92,7 @@ class View(tk.Frame):
         self.vlc_media = self.vlc_instance.media_new(video['filename'])
         self.video_player.set_media(self.vlc_media)
 
-        logging.info("Playing video {}".format (video['filename']))
+        logging.info("Playing video {} seek={}s duration={}s".format (video['filename'],seek,duration))
 
         if self.video_player.play() == -1:
             logging.error("Can't play video")
