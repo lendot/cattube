@@ -13,6 +13,9 @@ SERIAL_DEVICE = "/dev/ttyS0"
 
 DEFAULT_NEAR_THRESHOLD = 50
 
+# maximum number of sensor read attempts before giving up
+MAX_TRIES = 5
+
 
 class DistanceSensor:
     """
@@ -23,7 +26,7 @@ class DistanceSensor:
             serial_device = SERIAL_DEVICE,
             distance = DEFAULT_NEAR_THRESHOLD):
         self.serial_device = serial_device
-        self.serial = serial.Serial(self.serial_device)
+        self.serial = serial.Serial(self.serial_device,timeout=5)
         self.readings = [MAX_DISTANCE] * NUM_READINGS
         self.readings_idx = 0
         self.near = False
@@ -37,11 +40,30 @@ class DistanceSensor:
         TODO: handle timeouts, etc.
         """
 
-        # send command to read distane (0x55)
         self.serial.write(bytes([0x55]))
-        data = self.serial.read(2)
-        cm = (data[1] + (data[0] << 8)) / 10
-        logging.debug("raw distance: {:.1f} cm".format(cm))
+        success=False
+        for attempt in range(MAX_TRIES):
+            if attempt > 0:
+                time.sleep(0.2)
+                logging.error("retrying")
+
+            # send command to read distance (0x55)
+            self.serial.write(bytes([0x55]))
+            data = self.serial.read(2)
+            if len(data) < 2:
+                # timeout occurred
+                logging.error("Sensor read timeout.")
+            else:
+                success=True
+                break
+
+        if success:
+            cm = (data[1] + (data[0] << 8)) / 10
+            logging.debug("raw distance: {:.1f} cm".format(cm))
+        else:
+            logging.error("Giving up")
+            # TODO do something better here
+            cm = MAX_DISTANCE
 
         # cm = 30
 
