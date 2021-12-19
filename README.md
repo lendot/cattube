@@ -17,9 +17,7 @@ any training required.
 ## 2. Hardware
 
 - Raspberry Pi 3, 4, or Zero 2
-- HDMI-capable monitor/TV. Our cats can get pretty aggressive with their TV
-when watching some videos, so we installed a wall-mount TV bracket that can
-swivel
+- HDMI-capable monitor/TV
 - US-100 ultrasonic sensor. These can be found at several electronics
 supply places, including [Adafruit](https://www.adafruit.com/product/4019).
 - Wires to connect the sensor to the Pi. If your Pi has headers, then
@@ -42,17 +40,22 @@ Make the following connections between the US-100 and the Raspberry Pi:
 ![wiring connections between Raspberry Pi and US-100](images/cattube-hookup.png)
 
 
-## 3. Enclosure
+## 3. Enclosure and Sensor Positioning
 
 At minimum, you'll need some way to hold the sensor in place somewhere
 at cat-level while making sure the transmit/receive units are unobstructed.
-If you have access to a 3D printer, .stl files are
-included for wall-mount enclosures. Ours mounts under the TV.
+If you have access to a 3D printer, .stl files for a wall-mount enclosure
+are included in [enclosure](enclosure).
 
+Keep the immediate area around the sensor free of obstructions, both on the 
+sides and above and below. If an item such as the bottom edge of a television,
+the side of a shelf, or even the floor is within the sensor's early range,
+that can cause the video player to activate and remain on.
 
-### 3.1. Sensor Positioning
-[TODO]
-
+One good setup that doesn't take up much space is to wall-mount a small-ish
+TV/monitor a few inches above the sensor (the bottom of ours is 3.5" above
+the sensor). This gives our cats a roughly 2' x 2' area where they can watch
+their videos and as mentioned above they use the space a lot. 
 
 ## 4. Software
 
@@ -98,7 +101,6 @@ with any text editor. The following settings can be tweaked there:
 | clip_duration| 180                      | If play_clips is True, the length of clips (in seconds) to play |
 | idle_timeout | 15                       | How many seconds to keep playing the active video after the cat leaves before going back into standby, 0 = finish entire video | 
 | sensor_device| /dev/ttyS0               | If you need the sensor to to use a different serial device, set it here |
-| mute         | False                    | Set to True to mute audio tracks on videos |
 
 To help figure out the right distance setting to use in your configuration
 file, or to determine if there are any obstacles interfering with a proper
@@ -124,9 +126,9 @@ few seconds after a cat leaves rather than continuing dozens more minutes
 
 ### 4.2. Adding Videos
 
-By default, CatTube looks for videos in `/home/pi/Videos`. Currently only
-mp4 videos are supported. See the Tips For Videos section below for more
-information.
+No videos are provided with CatTube. By default, it looks for videos in
+`/home/pi/Videos`. Currently only mp4 videos are supported. See the Tips
+For Videos section below for more information.
 
 You can download videos from a browser or other application on the Pi desktop,
 or you can use, say, sftp from another machine (assuming SSH is enabled on
@@ -136,10 +138,10 @@ it'll automatically add them to its video pool without requiring a restart.
 
 ### 4.3. Running CatTube
 
-Once the hardware is hookd up and you have at least one video in your videos
-directory, you can run CatTube. Simply double-click the icon on the desktop
-to launch it. Clicking a mouse click anywhere on the screeen will exit the
-program. Otherwise, no keyboard or mouse is required for the program to 
+Once the hardware is hooked up and you have at least one video in your videos
+directory, you can run CatTube. Simply double-click the CatTube icon on the
+desktop to launch it. Simply clicking the left mouse button will exit the
+program. Otherwise, no keyboard or mouse is required for the program to
 function.
 
 If you want CatTube to automatically start whenever the system boots up,
