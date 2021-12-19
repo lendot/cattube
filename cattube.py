@@ -33,7 +33,7 @@ class View(tk.Frame):
         w,h = parent.winfo_screenwidth(), parent.winfo_screenheight()
         parent.geometry("{0}x{1}+0+0".format(w,h))
         # get rid of title bar, etc.
-        # parent.overrideredirect(1)
+        parent.overrideredirect(1)
         parent.config(bg="black")
 
         self.video_frame = tk.Frame(parent,bg="black")
