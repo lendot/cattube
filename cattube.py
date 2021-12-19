@@ -83,7 +83,7 @@ class View(tk.Frame):
                         self.after_cancel(self.video_end_timer)
                     self.video_end()
             else:
-                logger.info("Idle detected")
+                logging.info("Idle detected")
                 self.idle_start = time.monotonic() 
                 self.idle==True
             
@@ -93,7 +93,7 @@ class View(tk.Frame):
     def video_end(self):
         """ time to make video stop """
         self.video_player.stop()
-        logger.info("video ended")
+        logging.info("video ended")
         self.video_playing = False
         self.idle = False
         self.video_end_timer = None
