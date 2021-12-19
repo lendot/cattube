@@ -11,7 +11,7 @@ leave.
 
 We've had this system running for about 3 years in our living room and
 two of our cats love it and use it multiple times a day. Not only that,
-they grapsed it intuitively right from the beginning and there really wasn't
+they grasped it intuitively right from the beginning and there really wasn't
 any training required.
 
 ## 2. Hardware
@@ -36,6 +36,10 @@ Make the following connections between the US-100 and the Raspberry Pi:
 | GND (1)    | Pin 6 (GND) |
 | GND (2)    | Pin 9 (GND) |
 
+I haven't gotten around to investigating why this sensor breaks out
+2 grounds. One could *probably* get away with hooking up just one of them, 
+but I haven't tested this yet.
+
 
 ![wiring connections between Raspberry Pi and US-100](images/cattube-hookup.png)
 
@@ -49,13 +53,13 @@ are included in [enclosure](enclosure).
 
 Keep the immediate area around the sensor free of obstructions, both on the 
 sides and above and below. If an item such as the bottom edge of a television,
-the side of a shelf, or even the floor is within the sensor's early range,
-that can cause the video player to activate and remain on.
+the side of a shelf, or even the floor is too close to the sensor, that
+can cause the video player to activate and remain on.
 
-One good setup that doesn't take up much space is to wall-mount a small-ish
+One good setup that doesn't take up much space is to wall-mount a small
 TV/monitor a few inches above the sensor (the bottom of ours is 3.5" above
-the sensor). This gives our cats a roughly 2' x 2' area where they can watch
-their videos and as mentioned above they use the space a lot. 
+the sensor). Then you just need to allocate a roughly 2' x 2' space in
+front of that TV where your cats can watch their videos.
 
 ## 4. Software
 
@@ -76,14 +80,15 @@ $ pip install -r requirements.txt
 $ cp cattube.desktop ../Desktop
 ```
 
+Open File Manager and go to `Edit` > `Preferences` > `General` and check
+"Don't ask options on launch executable file". You can then close that
+window and exit File Manager.
+
+
 From the desktop menu go to `Preferences` > `Raspberry Pi Configuration`
 and do the following:
 1. Go to the `Display` tab and set `Screen Blanking` to `Disable`
 2. Go to the `Interfaces` tab and set `Serial Port` to `Enable` 
-
-
-Open File Manager and go to `Edit` > `Preferences` > `General` and check
-"Don't ask options on launch executable file".
 
 
 Click Ok and select Yes when asked to reboot.
