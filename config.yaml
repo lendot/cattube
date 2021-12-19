@@ -25,6 +25,12 @@ cattube:
     #
     # clip_duration: 300
 
+    # How many seconds to keep playing the active video after the cat leaves
+    # before going back into standby. 0 = play out entire video/clip
+    # default: 15
+    #
+    # idle_timeout: 10
+
     # device to use for communicating with the US-100
     # default: /dev/ttyS0
     #
