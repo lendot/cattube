@@ -26,6 +26,7 @@ class View(tk.Frame):
         self.vids = vids
 
         self.video_playing = False
+        self.video_end_timer = None
         self.idle = False
 
         self.play_clips = self.config.get("play_clips",False)
@@ -75,7 +76,7 @@ class View(tk.Frame):
                 pass
             else:
                 self.play_video()
-        elif self.idle_timeout > 0:
+        elif self.video_playing and self.idle_timeout > 0:
             if self.idle:
                 now = time.monotonic()
                 if now - self.idle_start > self.idle_timeout:
@@ -86,7 +87,7 @@ class View(tk.Frame):
             else:
                 logging.info("Idle detected")
                 self.idle_start = time.monotonic() 
-                self.idle==True
+                self.idle = True
             
         self.after(100,self.update)
 
