@@ -25,15 +25,16 @@ class View(tk.Frame):
         self.font = tkfont.Font(family=FONT_FAMILY,size=400)
 
         self.readout_label = tk.Label(parent,bg="black",fg="#ffffff",font=self.font)
+        self.readout_label.pack()
 
         self.update()
 
 
     def update(self):
         """ update sensor reading """
-        distance = self.sensor.get_distance()
+        distance = int(self.sensor.get_distance())
         self.readout_label['text'] = distance
-        self.after(500,self.update)
+        self.after(100,self.update)
 
 
 
