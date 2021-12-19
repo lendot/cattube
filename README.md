@@ -103,7 +103,7 @@ with any text editor. The following settings can be tweaked there:
 | distance     | 50                       | Maximum distance (cm) at which sensor will activate | 
 | play_clips   | False                    | If False, videos are played in their entirety. If True, random shorter subsections are played at a time |
 | clip_duration| 180                      | If play_clips is True, the length of clips (in seconds) to play |
-| idle_timeout | 15                       | How many seconds to keep playing the active video after the cat leaves before going back into standby, 0 = finish entire video | 
+| idle_timeout | 15                       | How many seconds to keep playing the active video after the cat leaves before going back into standby, 0 = play out entire video/clip | 
 | sensor_device| /dev/ttyS0               | If you need the sensor to to use a different serial device, set it here |
 
 To help figure out the right distance setting to use in your configuration
