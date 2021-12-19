@@ -36,25 +36,24 @@ Make the following connections between the US-100 and the Raspberry Pi:
 | GND (1)    | Pin 6 (GND) |
 | GND (2)    | Pin 9 (GND) |
 
+![wiring connections between Raspberry Pi and US-100](images/cattube-hookup.png)
+
 I haven't gotten around to investigating why this sensor breaks out
 2 grounds. One could *probably* get away with hooking up just one of them, 
 but I haven't tested this yet.
 
 
-![wiring connections between Raspberry Pi and US-100](images/cattube-hookup.png)
-
 
 ## 3. Enclosure and Sensor Positioning
 
 At minimum, you'll need some way to hold the sensor in place somewhere
-at cat-level while making sure the transmit/receive units are unobstructed.
-If you have access to a 3D printer, .stl files for a wall-mount enclosure
-are included in [enclosure](enclosure).
+at cat-level. If you have access to a 3D printer, .stl files for a wall-mount
+enclosure are included in [enclosure](enclosure).
 
 Keep the immediate area around the sensor free of obstructions, both on the 
 sides and above and below. If an item such as the bottom edge of a television,
 the side of a shelf, or even the floor is too close to the sensor, that
-can cause the video player to activate and remain on.
+can cause the video player to activate and remain on. 
 
 One good setup that doesn't take up much space is to wall-mount a small
 TV/monitor a few inches above the sensor (the bottom of ours is 3.5" above
@@ -76,7 +75,7 @@ Open a terminal and run the following commands:
 ```
 $ git clone https://github.com/lendot/cattube.git
 $ cd cattube
-$ pip install -r requirements.txt
+$ pip3 install -r requirements.txt
 $ cp cattube.desktop ../Desktop
 ```
 
@@ -173,9 +172,10 @@ and the like that our cats take really well to.
 I recommend trying a bunch of different types of videos to see what your cat
 responds to. In addition to the nature videos ours also like videos of
 animated critters and things like balls rolling around. They're even sometimes
-interested in gameplay videos from stuff like Tetris or Centipede. A while
-back I put an OK Go video on ours just for laughs and it turns out our cats
-really like watching it. You never know what might grab their attention.
+interested in gameplay videos from stuff like Tetris or Centipede. One of our
+cats absolutely loves Line Rider videos. A while back I put an OK Go video
+on ours just for laughs and months on our cats still really like watching
+it. You never know what might grab their attention.
 
 CatTube uses vlc to play the videos. The version that comes with
 Raspberry Pi OS isn't compiled with hardware acceleration enabled, which limits
