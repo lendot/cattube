@@ -34,7 +34,7 @@ class View(tk.Frame):
         """ update sensor reading """
         distance = int(self.sensor.get_distance())
         self.readout_label['text'] = distance
-        self.after(100,self.update)
+        self.after(200,self.update)
 
 
 
@@ -44,6 +44,8 @@ class SensorReadout(tk.Tk):
         super().__init__()
         
         conf = config.CatTubeConfig()
+
+        self.title("CatTube Sensor Readout")
 
         # set up the sensor
         kwargs = {}
