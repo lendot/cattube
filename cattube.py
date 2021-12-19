@@ -74,7 +74,7 @@ class View(tk.Frame):
                 pass
             else:
                 self.play_video()
-        else if self.idle_timeout > 0:
+        elif self.idle_timeout > 0:
             if self.idle:
                 now = time.monotonic()
                 if now - self.idle_start > self.idle_timeout:
