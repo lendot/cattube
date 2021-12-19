@@ -85,7 +85,7 @@ class DistanceSensor:
                 self.near = False
                 logging.info("Away (d={:.1f})".format(distance))
             else:
-                logging.info("d={:.1f}".format(distance))
+                logging.debug("d={:.1f}".format(distance))
         elif distance < self.near_threshold:
             # we just moved from away to near
             logging.info("Near detected (d={:.1f}) Verifying.".format(distance))
