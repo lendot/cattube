@@ -56,7 +56,7 @@ $ pip install -r requirements.txt
 $ cp cattube.desktop ../Desktop
 ```
 
-If you want CatTube to automatically start on bootup, also run this:
+If you want CatTube to automatically start on bootup, also run these:
 ```
 $ mkdir ~/.config/autostart
 $ cp cattube.desktop ~/.config/autostart
@@ -107,6 +107,18 @@ included for wall-mount enclosures. Ours mounts under the TV.
 
 ### 4.1. Sensor Positioning
 [TODO]
+
+To help figure out the right distance setting to use in your configuration,
+or to determine if there are any obstacles interfering with a proper distance
+reading, you can open up a terminal window and do the following:
+
+```
+cd cattube
+python3 sensor_readout.py
+```
+
+This will bring up a window that continuously updates a display of the
+sensor's distance reading.
 
 
 ## 5. Tips For Videos
