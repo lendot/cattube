@@ -5,6 +5,7 @@ import distance_sensor
 import tkinter as tk
 import vlc
 import random
+import time
 
 LOG_FILE = "cattube.log"
 
