@@ -143,7 +143,7 @@ it'll automatically add them to its video pool without requiring a restart.
 ### 4.3. Running CatTube
 
 Once the hardware is hooked up and you have at least one video in your videos
-directory, you can run CatTube. Simply double-click the CatTube icon on the
+directory, you can run CatTube. Double-click the CatTube icon on the
 desktop to launch it. Simply clicking the left mouse button will exit the
 program. Otherwise, no keyboard or mouse is required for the program to
 function.
