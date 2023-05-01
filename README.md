@@ -67,9 +67,11 @@ default operating system option.
 
 ![Raspberry Pi OS (32-bit) A port of Debian Bullseye with the Raspberry Pi Desktop (Recommended)](images/os-select.png)
 
+NOTE: These instructions assume your Pi user is `pi`. If you set it to something else, you'll need to update all `/home/pi` references here and in `cattube.desktop` accordingly.
 
 Make sure the Pi has internet access and has run its system updates before
-continuing. 
+continuing.
+
 
 Open a terminal and run the following commands:
 ```
@@ -86,8 +88,9 @@ window and exit File Manager.
 
 From the desktop menu go to `Preferences` > `Raspberry Pi Configuration`
 and do the following:
-1. Go to the `Display` tab and set `Screen Blanking` to `Disable`
-2. Go to the `Interfaces` tab and set `Serial Port` to `Enable` 
+1. Go to the `Display` tab and disable `Screen Blanking`
+2. Go to the `Interfaces` tab and enable `Serial Port`
+3. If there is a `Serial Console` option, disable it
 
 
 Click Ok and select Yes when asked to reboot.
