@@ -62,21 +62,54 @@ front of that TV where your cats can watch their videos.
 
 ## 4. Software
 
+### 4.1. Operating system
+
 Install [Raspberry Pi OS](https://www.raspberrypi.com/software/). Use the
 default operating system option.
 
 ![Raspberry Pi OS (32-bit) A port of Debian Bullseye with the Raspberry Pi Desktop (Recommended)](images/os-select.png)
 
-
 Make sure the Pi has internet access and has run its system updates before
 continuing. 
 
+### 4.2. Python version
+
+Open a terminal and run the following command to check your python version:
+```
+python --version
+```
+If the python version is 3.9.x or lower, proceed to the next section. If your
+system comes with python 3.10 or higher you'll need to get a lower version 
+installed first as one of the package dependencies doesn't yet support these newer
+versions. One way to do this is by installing [pyenv](https://github.com/pyenv/pyenv) 
+and using it to build and install python 3.9.x.
+
+Here are the bare-bones commands for doing that after installing pyenv;
+depending on your system you may need to install other system packages in order
+to successfully build python. The next time I bring this code up on a vanilla
+Raspberry Pi OS I'll document any other package prerequisites. These commands
+install 3.9.18 as that's the most recent python 3.9 release as of this writing;
+replace as appropriate.
+```
+# make sure tcl and tk are installed so that python builds with tkinter UI support
+sudo apt install tcl tk tcl-dev tk-dev
+# download and build the python version we need
+pyenv install 3.9.18
+```
+
+### 4.3. Software install
+
 Open a terminal and run the following commands:
 ```
-$ git clone https://github.com/lendot/cattube.git
-$ cd cattube
-$ pip3 install -r requirements.txt
-$ cp cattube.desktop ../Desktop
+git clone https://github.com/lendot/cattube.git
+cd cattube
+# run the following command ONLY if you installed pyenv above
+pyenv local 3.9.18
+# run all the rest of these commands
+python -m venv venv
+source venv/bin/activate
+pip3 install -r requirements.txt
+cp cattube.desktop ../Desktop
 ```
 
 Open File Manager and go to `Edit` > `Preferences` > `General` and check
@@ -93,7 +126,7 @@ and do the following:
 Click Ok and select Yes when asked to reboot.
 
 
-### 4.1. Configuration
+### 4.4. Configuration
 The configuration file is in `/home/pi/cattube/config.yaml`. It can be edited
 with any text editor. The following settings can be tweaked there:
 
@@ -112,6 +145,7 @@ distance reading, you can open up a terminal window and do the following:
 
 ```
 cd cattube
+source venv/bin/activate
 python3 sensor_readout.py
 ```
 
@@ -128,7 +162,7 @@ few seconds after a cat leaves rather than continuing dozens more minutes
 (or longer).
 
 
-### 4.2. Adding Videos
+### 4.5. Adding Videos
 
 No videos are provided with CatTube. By default, it looks for videos in
 `/home/pi/Videos`. Currently only mp4 videos are supported. See the Tips
@@ -140,7 +174,7 @@ the Pi). If you upload videos from another machine while CatTube is running,
 it'll automatically add them to its video pool without requiring a restart.
 
 
-### 4.3. Running CatTube
+### 4.6. Running CatTube
 
 Once the hardware is hooked up and you have at least one video in your videos
 directory, you can run CatTube. Double-click the CatTube icon on the
@@ -151,12 +185,12 @@ function.
 If you want CatTube to automatically start whenever the system boots up,
 open a terminal window and run the following commands:
 ```
-$ cd cattube
-$ mkdir ~/.config/autostart
-$ cp cattube.desktop ~/.config/autostart
+cd cattube
+mkdir ~/.config/autostart
+cp cattube.desktop ~/.config/autostart
 ```
 
-### 4.4. Troubleshooting
+### 4.7. Troubleshooting
 
 CatTube keeps a log file in `/home/pi/cattube/cattube.log`. Check that first
 if anything's amiss.
