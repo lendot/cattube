@@ -9,7 +9,7 @@ whatever videos a particular cat likes to watch, and when the sensor
 detects they're within range, the videos will start playing until they 
 leave.
 
-We've had this system running for about 3 years in our living room and
+We've had this system running for about 6 years in our living room and
 two of our cats love it and use it multiple times a day. Not only that,
 they grasped it intuitively right from the beginning and there really wasn't
 any training required.
