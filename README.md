@@ -38,9 +38,9 @@ Make the following connections between the US-100 and the Raspberry Pi:
 
 ![wiring connections between Raspberry Pi and US-100](images/cattube-hookup.png)
 
-I haven't gotten around to investigating why this sensor breaks out
-2 grounds. One could *probably* get away with hooking up just one of them, 
-but I haven't tested this yet.
+I haven't gotten around to investigating why this sensor breaks out 2
+grounds. There's continuity between them so one could probably get away
+with hooking up just one, but I do both just to be on the safe side.
 
 
 
@@ -65,9 +65,9 @@ front of that TV where your cats can watch their videos.
 ### 4.1. Operating system
 
 Install [Raspberry Pi OS](https://www.raspberrypi.com/software/). Use the
-default operating system option.
+default operating system option recommended for your hardware.
 
-![Raspberry Pi OS (32-bit) A port of Debian Bullseye with the Raspberry Pi Desktop (Recommended)](images/os-select.png)
+![Raspberry Pi OS installer Operating System dropdown sample highlighting the recommended option](images/os-select.png)
 
 NOTE: These instructions assume your Pi user is `pi`. If you set it to something else, you'll need to update all `/home/pi` references here and in `cattube.desktop` accordingly.
 
