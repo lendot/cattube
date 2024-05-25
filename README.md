@@ -64,8 +64,8 @@ front of that TV where your cats can watch their videos.
 
 ### 4.1. Operating system
 
-Install [Raspberry Pi OS](https://www.raspberrypi.com/software/). Use the
-default operating system option recommended for your hardware.
+If not installed already, install [Raspberry Pi OS](https://www.raspberrypi.com/software/).
+Use the default operating system option recommended for your hardware.
 
 ![Raspberry Pi OS installer Operating System dropdown sample highlighting the recommended option](images/os-select.png)
 
@@ -113,7 +113,7 @@ pyenv local 3.9.18
 # run all the rest of these commands
 python -m venv venv
 source venv/bin/activate
-pip3 install -r requirements.txt
+pip install -r requirements.txt
 cp cattube.desktop ../Desktop
 ```
 
@@ -219,8 +219,8 @@ it. You never know what might grab their attention.
 
 CatTube uses vlc to play the videos. The version that comes with
 Raspberry Pi OS isn't compiled with hardware acceleration enabled, which limits
-performance. The Pi 3 I'm testing on can handle standard 1K HD <= 30 FPS fine,
-but 4k or higher frame rates give it trouble. If a video is playing really
+performance. A Pi 3 can handle standard 1K HD <= 30 FPS fine, but 4k or higher
+frame rates give it trouble. Pi 4 is more forgiving. If a video is playing really
 slowly, or is giving a black screen, you may need to decrease the resolution
 and/or frame rate.
 
