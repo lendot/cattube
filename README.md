@@ -36,7 +36,7 @@ Make the following connections between the US-100 and the Raspberry Pi:
 | GND (1)    | Pin 6 (GND) |
 | GND (2)    | Pin 9 (GND) |
 
-![wiring connections between Raspberry Pi and US-100](images/cattube-hookup.png | width=600)
+![wiring connections between Raspberry Pi and US-100](images/cattube-hookup.png)
 
 I haven't gotten around to investigating why this sensor breaks out 2
 grounds. There's continuity between them so one could probably get away
