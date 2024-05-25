@@ -89,21 +89,23 @@ and using it to build and install python 3.9.x.
 
 Here are the bare-bones commands for doing that after installing pyenv;
 depending on your system you may need to install other system packages in order
-to successfully build python. The next time I bring this code up on a vanilla
-Raspberry Pi OS I'll document any other package prerequisites. These commands
-install 3.9.18 as that's the most recent python 3.9 release as of this writing;
-replace as appropriate.
-```
-# make sure tcl and tk are installed so that python builds with tkinter UI support
-sudo apt install tcl tk tcl-dev tk-dev
-# download and build the python version we need
+to successfully build python.
+
+These commands will install the python build dependencies, make sure tcl and tk
+are installed so tkinter GUI support gets built in, and build and install the
+specified python version. 3.9.18 is used here as that's the most recent 
+python 3.9 release for pyenv as of this writing; see the pyenv documentation
+for info on updating and listing available versions.
+
+```sh
+sudo apt install libbz2-dev libncurses-dev libffi-dev libreadline-dev liblzma-dev liblzma-dev liblzma-dev tcl tk tcl-dev tk-dev
 pyenv install 3.9.18
 ```
 
 ### 4.3. Software install
 
-Open a terminal and run the following commands:
-```
+Open a terminal and run the following commands to download CatTube and set up its run environment:
+```sh
 git clone https://github.com/lendot/cattube.git
 cd cattube
 # run the following command ONLY if you installed pyenv above
@@ -147,8 +149,8 @@ To help figure out the right distance setting to use in your configuration
 file, or to determine if there are any obstacles interfering with a proper
 distance reading, you can open up a terminal window and do the following:
 
-```
-cd cattube
+```sh
+cd ~/cattube
 source venv/bin/activate
 python3 sensor_readout.py
 ```
@@ -188,9 +190,9 @@ function.
 
 If you want CatTube to automatically start whenever the system boots up,
 open a terminal window and run the following commands:
-```
-cd cattube
+```sh
 mkdir ~/.config/autostart
+cd ~/cattube
 cp cattube.desktop ~/.config/autostart
 ```
 
