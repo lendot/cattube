@@ -16,14 +16,12 @@ any training required.
 
 ## 2. Hardware
 
-- Raspberry Pi 3, 4, or Zero 2
+- Raspberry Pi 3 or 4 (5 should work too, but I haven't tested yet)
 - HDMI-capable monitor/TV
 - US-100 ultrasonic sensor. These can be found at several electronics
 supply places, including [Adafruit](https://www.adafruit.com/product/4019).
-- Wires to connect the sensor to the Pi. If your Pi has headers, then
-F-F jumper wires will work. If you 3D print the supplied enclosure design,
-3" jumpers work best. For attaching to my headerless Pi Zero 2, I took the
-header off the US-100 and soldered the wires at both ends
+- Wires to connect the sensor to the Pi. F-F jumper wires are simplest.
+If you 3D print the supplied enclosure design, 3" jumpers work best.
 
 ### 2.1. Hookup
 
@@ -152,7 +150,7 @@ distance reading, you can open up a terminal window and do the following:
 ```sh
 cd ~/cattube
 source venv/bin/activate
-python3 sensor_readout.py
+python sensor_readout.py
 ```
 
 This will bring up a window that continuously updates a display of the
